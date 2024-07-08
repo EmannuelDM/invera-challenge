@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from core.filters import TaskFilter
 from core.models import Task
@@ -13,7 +14,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = TaskFilter
 
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         action = self.action
