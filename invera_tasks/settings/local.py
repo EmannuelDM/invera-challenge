@@ -5,7 +5,7 @@ from invera_tasks.settings.base import *
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Database
@@ -13,7 +13,11 @@ ALLOWED_HOSTS = ['localhost']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": os.environ.get("PGSQL_ENGINE", "django.db.backends.postgresql_psycopg2"),
+        "NAME": os.environ.get("PGSQL_DATABASE", os.path.join(BASE_DIR, "testdb")),
+        "USER": os.environ.get("PGSQL_USER", "admin"),
+        "PASSWORD": os.environ.get("PGSQL_PASSWORD", "admin"),
+        "HOST": os.environ.get("PGSQL_HOST", "127.0.0.1"),
+        "PORT": os.environ.get("PGSQL_PORT", 5432)
     }
 }
