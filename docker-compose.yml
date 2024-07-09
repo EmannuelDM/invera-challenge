@@ -16,7 +16,7 @@ services:
 
   django:
     build: .
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver localhost:8002"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
     container_name: invera_tasks
     volumes:
       - .:/app
@@ -24,9 +24,13 @@ services:
     environment:
       PGSQL_HOST: postgresql
       PGSQL_DATABASE: taskdb
+      PGSQL_USER: admin
+      PGSQL_PASSWORD: admin
     ports:
       - "8002:8002"
     depends_on:
+      - postgresql
+    links:
       - postgresql
 
 volumes:
