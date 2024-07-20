@@ -56,3 +56,8 @@ se esta listo para acceder a los endpoints del proyecto
 ```
 localhost:8002/swagger/
 ```
+
+### Para ejecutar tests
+```
+docker-compose run --rm django pytest .
+```
