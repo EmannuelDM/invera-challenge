@@ -21,6 +21,16 @@ def test_create_task(authenticated_client):
 
 
 @pytest.mark.django_db
+def test_read_task(authenticated_client, get_task):
+    user, task = get_task
+    url = reverse('core:Task-list')
+    response = authenticated_client.get(url, content_type="application/json")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json()['count'] == 1
+    assert response.json()['results'][0]['title'] == task.title
+
+
+@pytest.mark.django_db
 def test_check_task(authenticated_client, get_task):
     user, task = get_task
     assert task.done is False
@@ -29,3 +39,17 @@ def test_check_task(authenticated_client, get_task):
     response = authenticated_client.patch(url, data=json.dumps(payload), content_type="application/json")
     assert response.status_code == status.HTTP_200_OK
     assert response.json()['done'] is True
+
+
+@pytest.mark.django_db
+def test_delete_task(authenticated_client, get_task):
+    user, task = get_task
+    url = reverse(f"core:Task-detail", kwargs={"pk": task.id})
+
+    # Delete Task
+    response = authenticated_client.delete(url, content_type="application/json")
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+    # Check deletion
+    response = authenticated_client.get(url, content_type="application/json")
+    assert response.status_code == status.HTTP_404_NOT_FOUND

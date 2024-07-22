@@ -61,3 +61,9 @@ localhost:8002/swagger/
 ```
 docker-compose run --rm django pytest .
 ```
+
+
+### Para ver las urls con su notacion para los pytest
+```
+docker-compose run --rm django python manage.py show_urls
+```

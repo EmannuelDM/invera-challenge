@@ -2,7 +2,10 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from core.models import Task
+from core.utils import get_logger
 from user.serializers import UserModelSerializer
+
+logger = get_logger(__name__)
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -23,4 +26,6 @@ class TaskWriteSerializer(serializers.ModelSerializer):
     def create(self, data):
         user_id = data.pop('user_id')
         user = User.objects.get(id=user_id)
-        return Task.objects.create(user=user, **data)
+        task = Task.objects.create(user=user, **data)
+        logger.info(f"Task created: {task.title}")
+        return task
