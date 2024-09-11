@@ -9,7 +9,8 @@ def create_user_admin():
         email="admin@challenge.com.ar",
         is_staff=True,
         is_active=True,
-        is_superuser=True)
+        is_superuser=True,
+    )
     admin.set_password("admin_123")
     return admin
 

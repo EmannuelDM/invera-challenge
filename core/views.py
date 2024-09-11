@@ -18,6 +18,6 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         action = self.action
-        if action in ['create', 'update', 'partial_update']:
+        if action in ["create", "update", "partial_update"]:
             return TaskWriteSerializer
         return TaskSerializer

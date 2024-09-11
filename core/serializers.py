@@ -13,7 +13,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ['id', 'user', 'title', 'description', 'done', 'created_at']
+        fields = ["id", "user", "title", "description", "done", "created_at"]
 
 
 class TaskWriteSerializer(serializers.ModelSerializer):
@@ -21,10 +21,10 @@ class TaskWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ['user_id', 'title', 'description', 'done']
+        fields = ["user_id", "title", "description", "done"]
 
     def create(self, data):
-        user_id = data.pop('user_id')
+        user_id = data.pop("user_id")
         user = User.objects.get(id=user_id)
         task = Task.objects.create(user=user, **data)
         logger.info(f"Task created: {task.title}")

@@ -3,6 +3,7 @@ import logging
 
 # https://docs.python.org/es/3/howto/logging.html
 
+
 def get_logger(file_name):
     # create logger
     logger = logging.getLogger(file_name)
@@ -13,7 +14,9 @@ def get_logger(file_name):
     ch.setLevel(logging.DEBUG)
 
     # create formatter
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
 
     # add formatter to ch
     ch.setFormatter(formatter)
